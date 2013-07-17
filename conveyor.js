@@ -13,7 +13,7 @@
 $.fn.conveyor = function(options){
     
     var el = $(this),
-    	mobile = isMobile.any(),
+    	mobile = isMobile.any();
         conveyor = new Plugin(el,options);
 
     window.addEventListener( 'resize', conveyor.resize, false );
@@ -27,8 +27,8 @@ var Plugin = function(me,options){
         ul:'#images',
         fit:'cover',
         auto:true,
-        countdown:3000,
-        speed:1000,
+        countdown:(~~(Math.random()*2000)+500),
+        speed:400,
         startPosition:1,
         transition:'blend',
         ease:'normal',
@@ -46,6 +46,8 @@ var Plugin = function(me,options){
     this.ulheight = this.total * this.height;
     this.ease = this.easeSwitch();
     this.tweening = true;
+    this.ul = $(this.el).find(this.config.ul);
+    this.random = true;
     
     this.init();
 }
@@ -67,30 +69,30 @@ Plugin.prototype.init = function(){
         $(this).html('');
         $this.cssemble($this.slides[i]);
     });
-    if($this.config.transition != 'blend') $(this.config.ul).css(this.prefixer());
+    if($this.config.transition != 'blend') $(this.ul).css(this.prefixer());
     if(this.config.auto) this.autoslide();
 }
 Plugin.prototype.setup = function(){
 
     var type = this.config.transition;
-
+    
     if(this.config.overflow)this.el.css('overflow','hidden');
 
-    $(this.config.ul).css({
+    $(this.ul).css({
         'position':'relative',
         'list-style':'none'
     });
     switch(type){
         case 'horizontal':     
             this.xpos = -(this.current * this.width);
-            $(this.config.ul).css({
+            $(this.ul).css({
                 'width':this.ulwidth + 'px',
                 'left':this.xpos+'px'
             });
         break;
         case 'vertical':
             this.ypos =  -(this.current * this.height);
-            $(this.config.ul).css({
+            $(this.ul).css({
                 'top':this.ypos+'px'
             });        
         break;
@@ -179,12 +181,12 @@ Plugin.prototype.slide = function(direction){
     // administer effect
     switch($type){
         case 'horizontal':
-            this.el.children(this.config.ul).css({
+            this.el.children(this.ul).css({
                 left: $this.xpos+'px'
             })
         break;
         case 'vertical':
-            this.el.children(this.config.ul).css({
+            this.el.children(this.ul).css({
                 top: $this.ypos+'px'
             })
         break;
@@ -270,7 +272,7 @@ Plugin.prototype.toggleTween = function(){
     this.tweening = (this.tweening)? false : true;
 
     if(this.config.transition == 'slide'){
-        $(this.config.ul).css(this.prefixer())
+        $(this.ul).css(this.prefixer())
     }else{
 
     }
@@ -278,9 +280,16 @@ Plugin.prototype.toggleTween = function(){
 }
 Plugin.prototype.autoslide = function(){
     var $this = this;
-    var auto = setInterval(function(){     
+    this.auto = setInterval(function(){     
         
-        $this.slide($this.config.direction);
+        
+        if(this.random){
+            var d = (Math.random() > .5)? 'forward' : 'reverse';
+            $this.slide(d);    
+        }else{
+            $this.slide($this.config.direction);    
+        }
+        
                  
     },this.config.countdown);
 }
