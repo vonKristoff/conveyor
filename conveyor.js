@@ -33,7 +33,10 @@ var Plugin = function(me,options){
         transition:'blend',
         ease:'normal',
         direction:'forward',
-        overflow:true
+        overflow:true,
+        html:false,
+        htmlbg:null,
+        controls:false
     };
     $.extend(this.config,options);
 
@@ -47,8 +50,7 @@ var Plugin = function(me,options){
     this.ease = this.easeSwitch();
     this.tweening = true;
     this.ul = $(this.el).find(this.config.ul);
-    this.random = true;
-    
+        
     this.init();
 }
 Plugin.prototype.init = function(){
@@ -63,14 +65,14 @@ Plugin.prototype.init = function(){
             item: $(this),
             path: $(this).children().attr('src'),
             orient: $this.orientation($(this).children('img')),
-            alpha:0,
             i:i
         };
-        $(this).html('');
+        if(!$this.config.html) $(this).html('');
         $this.cssemble($this.slides[i]);
     });
     if($this.config.transition != 'blend') $(this.ul).css(this.prefixer());
     if(this.config.auto) this.autoslide();
+    if(this.config.controls) this.addControls();
 }
 Plugin.prototype.setup = function(){
 
@@ -109,7 +111,8 @@ Plugin.prototype.cssemble = function(item){
         $ize = this.sizer();
     
     $li.css(this.stacking()); // stacking types dependant on transition choice
-
+    if(this.config.html) $path = this.config.htmlbg;
+    // $path = 'img/7.jpg'
     $li.css({
         'width':$this.width+'px',
         'height':$this.height+'px',
@@ -282,7 +285,7 @@ Plugin.prototype.autoslide = function(){
     var $this = this;
     this.auto = setInterval(function(){     
         
-        
+        this.random = true; // for plugin site only
         if(this.random){
             var d = (Math.random() > .5)? 'forward' : 'reverse';
             $this.slide(d);    
@@ -293,6 +296,67 @@ Plugin.prototype.autoslide = function(){
                  
     },this.config.countdown);
 }
+Plugin.prototype.addControls = function(){
+
+    var $$this = this;
+
+    this.el.parent().append('<div class="cb-next"/>');
+    this.el.parent().append('<div class="cb-prev"/>');
+
+    $('.cb-next').css({
+        'float':'right',
+        'position':'relative',
+        'top':'-450px',
+        'right':'-20px',
+        'margin-top':'10px',
+        'margin-left':'10px',
+        'width':'20px',
+        'height':'20px',
+        'border-left':'15px solid rgb(255,255,255)',
+        'border-top':'15px solid rgb(255,255,255)',
+        '-webkit-transform':'rotate(135deg)',
+        '-webkit-transition':'all .3s',
+        'opacity':'.5'
+    })
+    $('.cb-next').on('click',function(){
+        $this.slide($this.config.direction);
+    }).on('mouseover',function(){
+        $(this).css({
+            'opacity':'1',
+            'cursor':'pointer'
+        })
+    }).on('mouseout',function(){
+        $(this).css('opacity','.5')
+    })
+
+    $('.cb-prev').css({
+        'float':'left',
+        'position':'relative',
+        'top':'-450px',
+        'left':'-20px',
+        'margin-top':'10px',
+        'margin-left':'10px',
+        'width':'20px',
+        'height':'20px',
+        'border-left':'15px solid rgb(255,255,255)',
+        'border-top':'15px solid rgb(255,255,255)',
+        '-webkit-transform':'rotate(-45deg)',
+        '-webkit-transition':'all .3s',
+        'opacity':'.5'
+    })
+    $('.cb-prev').on('click',function(){
+        var way = ($this.config.direction == 'forward')? 'backward' : 'forward';
+        $this.slide(way);
+    }).on('mouseover',function(){
+        $(this).css({
+            'opacity':'1',
+            'cursor':'pointer'
+        })
+    }).on('mouseout',function(){
+        $(this).css('opacity','.5')
+    })
+
+}
 Plugin.prototype.orientation = function(img){
     var w = img.width(),
         h = img.height(),
@@ -300,8 +364,6 @@ Plugin.prototype.orientation = function(img){
         
     return o // true for landscape
 }
-
-
 Plugin.prototype.prefixer = function(){
     var prefix = {};
     if(this.tweening){

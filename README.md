@@ -29,23 +29,28 @@ $('.example').plugin({
 	transition,
 	ease,
 	direction,
-	overflow
+	overflow,
+	html,
+	controls
+
 });
 ```
 <h1>config options:</h1>
 
-| Option         | data type  	| values              				 | description                |
-| ---------------|--------------|------------------------------------|----------------------------|
-| ul  			 | string     	| '#images'      					 | id/class of parent <ul> |
-| fit        	 | string/float | 'cover','landscape','portrait', .5 | decimal is a percentage value of images original size |
-| auto 			 | float      	| true, false  	     				 | auto or manual slide show |
-| countdown 	 | float      	| 3000   	     					 | time in ms till next slide |
-| speed			 | int		  	| 400 								 | transition speed in ms |
-| startPosition	 | int		  	| 1, 'last' 						 | choose where you want you show to start from |
-| transition	 | string	  	| 'vertical','horizontal','blend' 	 | transition types |
-| ease			 | string	  	| 'normal','in','out',$custom 		 | if adding a custom - you must prepend $ to your string first |
-| direction		 | string	  	| 'forward','backward' 				 | 'next' or 'previous' directions for auto mode |
-| overflow		 | boolean	  	| true, false 						 | hide the overflow? |
+| Option         | data type  	| values              				 | default  	| description                |
+| ---------------|--------------|------------------------------------|--------------|----------------------------|
+| ul  			 | string     	| '#images'      					 | '#cb-images' | id/class of parent <ul> |
+| fit        	 | string;float | 'cover','landscape','portrait', .5 | 'cover'     	| decimal is a percentage value of images original size |
+| auto 			 | float      	| true, false  	     				 | true  		| auto or manual slide show |
+| countdown 	 | float      	| 3000   	     					 | 3000  		| time in ms till next slide |
+| speed			 | int		  	| 400 								 | 400  		| transition speed in ms |
+| startPosition	 | int		  	| 1, 'last' 						 | 1  			| choose where you want you show to start from |
+| transition	 | string	  	| 'vertical','horizontal','blend' 	 | 'blend'  	| transition types |
+| ease			 | string	  	| 'normal','in','out',$custom 		 | 'normal'  	| if adding a custom - you must prepend $ to your string first |
+| direction		 | string	  	| 'forward','backward' 				 | 'forward'  	| 'next' or 'previous' directions for auto mode |
+| overflow		 | boolean	  	| true, false 						 | true  		| hides the overflow |
+| html 			 | boolean		| true, false						 | false		| allows HTML content. Replace <img> with a <div> including your content |
+| controls		 | boolean 		| true, false 						 | false 		| adds 'next' & 'previous' control buttons |
 
 <h1>usage example</h1>
 ```javascript
