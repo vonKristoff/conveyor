@@ -31,7 +31,8 @@ $('.example').plugin({
 	direction,
 	overflow,
 	html,
-	controls
+	controls,
+	buttonDimension
 
 });
 ```
@@ -51,6 +52,7 @@ $('.example').plugin({
 | overflow		 | boolean	  	| true, false 						 | true  		| hides the overflow |
 | html 			 | boolean		| true, false						 | false		| allows HTML content. Replace <img> with a <div> including your content |
 | controls		 | boolean 		| true, false 						 | false 		| adds 'next' & 'previous' control buttons |
+| buttonDimension| int			| 100								 | 20 			| value is in pixels - donates size of < and > buttons |
 
 <h1>usage example</h1>
 ```javascript
@@ -59,6 +61,7 @@ $('.container').conveyor({
 	fit:'portrait',
 	transition:'blend',
 	startPosition:'last',
-	direction:'backward'
+	direction:'backward',
+	ease:'$cubic-bezier(0.230, 1.000, 0.320, 1.000)'
 });
 ```

@@ -24,7 +24,7 @@ $.fn.conveyor = function(options){
 var Plugin = function(me,options){
     
     this.config = {
-        ul:'#images',
+        ul:'#cb-images',
         fit:'cover',
         auto:true,
         countdown:(~~(Math.random()*2000)+500),
@@ -36,7 +36,8 @@ var Plugin = function(me,options){
         overflow:true,
         html:false,
         htmlbg:null,
-        controls:false
+        controls:false,
+        buttonDimension:20
     };
     $.extend(this.config,options);
 
@@ -298,20 +299,24 @@ Plugin.prototype.autoslide = function(){
 }
 Plugin.prototype.addControls = function(){
 
-    var $$this = this;
+    var $this = this,
+        $arrow = this.config.buttonDimension,
+        $top = this.height/2 + $arrow + $arrow/2;
 
     this.el.parent().append('<div class="cb-next"/>');
     this.el.parent().append('<div class="cb-prev"/>');
 
+    console.log(this.height);
+
     $('.cb-next').css({
         'float':'right',
         'position':'relative',
-        'top':'-450px',
-        'right':'-20px',
-        'margin-top':'10px',
-        'margin-left':'10px',
-        'width':'20px',
-        'height':'20px',
+        'top':'-'+$top+'px',
+        'right':'-'+$arrow/2+'px',
+        'margin-top':$arrow/2+'px',
+        'margin-left':$arrow/2+'px',
+        'width':$arrow+'px',
+        'height':$arrow+'px',
         'border-left':'15px solid rgb(255,255,255)',
         'border-top':'15px solid rgb(255,255,255)',
         '-webkit-transform':'rotate(135deg)',
@@ -332,12 +337,12 @@ Plugin.prototype.addControls = function(){
     $('.cb-prev').css({
         'float':'left',
         'position':'relative',
-        'top':'-450px',
-        'left':'-20px',
-        'margin-top':'10px',
-        'margin-left':'10px',
-        'width':'20px',
-        'height':'20px',
+        'top':'-'+$top+'px',
+        'left':'-'+$arrow+'px',
+        'margin-top':$arrow/2+'px',
+        'margin-left':$arrow/2+'px',
+        'width':$arrow+'px',
+        'height':$arrow+'px',
         'border-left':'15px solid rgb(255,255,255)',
         'border-top':'15px solid rgb(255,255,255)',
         '-webkit-transform':'rotate(-45deg)',
@@ -434,7 +439,7 @@ Plugin.prototype.easeSwitch = function(){
     }
 }
 Plugin.prototype.resize = function(){
-
+    
 }
 
 var isMobile = {
