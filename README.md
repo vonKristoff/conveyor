@@ -1,6 +1,8 @@
 CONVEYOR-BELT
 =============
 
+<i>depends on jQuery 1.8.0 +</i>
+
 <a href='http://bite-software.co.uk/conveyor'>Plugin Site</a>
 
 PREREQUISITES:
