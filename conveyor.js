@@ -319,8 +319,8 @@ Plugin.prototype.addControls = function(){
         'height':$arrow+'px',
         'border-left':'15px solid rgb(255,255,255)',
         'border-top':'15px solid rgb(255,255,255)',
-        '-webkit-transform':'rotate(135deg)',
-        '-webkit-transition':'all .3s',
+        'transform':'rotate(135deg)',
+        'transition':'all .3s',
         'opacity':'.5'
     })
     $('.cb-next').on('click',function(){
@@ -345,8 +345,8 @@ Plugin.prototype.addControls = function(){
         'height':$arrow+'px',
         'border-left':'15px solid rgb(255,255,255)',
         'border-top':'15px solid rgb(255,255,255)',
-        '-webkit-transform':'rotate(-45deg)',
-        '-webkit-transition':'all .3s',
+        'transform':'rotate(-45deg)',
+        'transition':'all .3s',
         'opacity':'.5'
     })
     $('.cb-prev').on('click',function(){
@@ -373,18 +373,10 @@ Plugin.prototype.prefixer = function(){
     var prefix = {};
     if(this.tweening){
         prefix = {
-            '-webkit-transition':'all '+this.config.speed+'ms '+this.ease, 
-            '-moz-transition':'all '+this.config.speed+'ms '+this.ease, 
-            '-ms-transition':'all '+this.config.speed+'ms '+this.ease,
-            '-o-transition':'all '+this.config.speed+'ms '+this.ease,
             'transition':'all '+this.config.speed+'ms '+this.ease
         }
     }else{
         prefix = {
-            '-webkit-transition':'all 0',
-            '-moz-transition':'all 0',
-            '-ms-transition':'all 0',
-            '-o-transition':'all 0',
             'transition':'all 0'
         }
     }
