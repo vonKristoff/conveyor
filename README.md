@@ -10,7 +10,7 @@ PREREQUISITES:
 Use CSS to set the height and width of your $('.example') element - this will be the size of your slideshow.
 ```html
 <div class="example">
-	<ul class="images">
+	<ul id="cb-images">
 		<li><img src="img.png"/></li>
 		<li><img src="img.png"/></li>
 		<li><img src="img.png"/></li>
